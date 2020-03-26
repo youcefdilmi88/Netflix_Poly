@@ -1,0 +1,55 @@
+Membre (ID_membre, nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville)
+    Primary Key ID_membre
+
+Membre_mensuel (ID_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement)
+    Primary Key ID_membre
+    Foreign Key ID_membre references Membre(ID_membre)
+
+Membre_payperview (ID_membre, nb_film_payperview)
+    Primary Key ID_membre
+    Foreign Key ID_membre references Membre(ID_membre)
+
+Commande (ID_commande, ID_membre)
+    Primary Key ID_commande, ID_membre
+    Foreign Key ID_membre references Membre(ID_membre)    
+
+Livraison (ID_commande, ID_dvd, cout, date, distance, ID_film)
+    Primary Key ID_commande, ID_dvd
+    Foreign Key ID_commande references Commande(ID_commande)
+     Foreign Key ID_dvd references DVD(ID_dvd)
+    Foreign Key ID_film references Film(ID_film)
+
+Visionnement (ID_commande, ID_film, cout, date, duree)
+    Primary Key ID_commande, ID_film
+    Foreign Key ID_commande references Commande(ID_commande)
+    Foreign Key ID_film references Film(ID_film)
+
+Film (ID_film, titre, genre, date_production, duree_totale)
+    Primary Key ID_film
+
+DVD (ID_dvd, ID_livraison ID_film)
+    Primary Key ID_dvd, ID_film
+    Foreign Key ID_livraison references Livraison(ID_commande)
+    Foreign Key ID_film references Film(ID_film)
+
+Film_Employe (ID_film, ID_employe, role, salaire)
+    Primary Key ID_film, ID_employe, role
+    Foreign Key ID_film references Film(ID_film)
+    Foreign Key ID_employe references Employe(ID_employe)
+
+Employe (ID_employe, nom, age, sexe, nationalite)
+    Primary Key ID_employe
+
+Carte_credit (ID_carte, ID_membre, titulaire, numero, expiration, CCV)
+    Primary Key ID_carte, ID_membre
+    Foreign Key ID_membre references Membre(ID_membre)
+
+Ceremonie_oscars (ID_ceremonie, date, maitre, lieu)
+    Primary Key ID_ceremonie
+
+Oscar (ID_oscar, ID_film, ID_ceremonie, gagne, categorie)
+    Primary Key ID_oscar, ID_film, ID_ceremonie
+    Foreign Key ID_film references Film(ID_film)
+    Foreign Key ID_ceremonie references Ceremonie_oscars(ID_ceremonie)
+
+
