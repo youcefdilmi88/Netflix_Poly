@@ -1,4 +1,4 @@
-Membre (ID_membre, nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville)
+Membre (ID_membre, nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville, isAdmin)
     Primary Key ID_membre
 
 Membre_mensuel (ID_membre_mensuel, prix_abonnement, date_debut_abonnement, date_fin_abonnement)
@@ -13,18 +13,18 @@ Commande (ID_commande, ID_membre)
     Primary Key ID_commande
     Foreign Key ID_membre references Membre(ID_membre)    
 
-Livraison (ID_commande, prix, date_livraison, distance)
+Livraison (ID_commande, ID_dvd, prix, date_livraison, distance)
     Primary Key ID_commande
     Foreign Key ID_commande references Commande(ID_commande)
 
-Visionnement (ID_commande, prix, date, stop_time)
+Visionnement (ID_commande, ID_film, prix, date, stop_time_sec)
     Primary Key ID_commande
     Foreign Key ID_commande references Commande(ID_commande)
 
-Film (ID_film, titre, genre, date_production, duree_totale)
+Film (ID_film, titre, genre, date_production, duree_totale_min)
     Primary Key ID_film
 
-DVD (ID_dvd, ID_livraison ID_film)
+DVD (ID_dvd, no_instance, ID_film, ID_livraison)
     Primary Key ID_dvd, ID_film
     Foreign Key ID_livraison references Livraison(ID_commande)
     Foreign Key ID_film references Film(ID_film)
@@ -44,7 +44,7 @@ Carte_credit (ID_carte, ID_membre, titulaire, numero, expiration, CCV)
 Ceremonie_oscars (ID_ceremonie, date_ceremonie, maitre, lieu)
     Primary Key ID_ceremonie
 
-Oscars (ID_oscar, ID_film, ID_ceremonie, gagne, categorie)
+Oscars (ID_oscar, ID_film, ID_ceremonie, isWon, categorie)
     Primary Key ID_oscar, ID_film
     Foreign Key ID_film references Film(ID_film)
     Foreign Key ID_ceremonie references Ceremonie_oscars(ID_ceremonie)
