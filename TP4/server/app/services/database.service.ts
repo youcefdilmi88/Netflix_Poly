@@ -48,6 +48,12 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM netflixdb.Film;');
     }
 
+    public login(email: String, password: String): Promise<pg.QueryResult> {
+        return this.pool.query(`SELECT * FROM netflixdb.Membre m WHERE m.courriel='${email}' AND m.mot_de_passe='${password}';`);
+
+    }
+
+
     // public getHotelNo(): Promise<pg.QueryResult> {
 
     //     return this.pool.query('SELECT hotelNo FROM HOTELDB.Hotel;');

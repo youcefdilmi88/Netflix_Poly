@@ -1,12 +1,8 @@
 <div id='main'>
   <div id="bd-button">
-    <button mat-raised-button class='left-item' mat-button [matMenuTriggerFor]="aboveMenu">Base de données</button>
-    <mat-menu #aboveMenu="matMenu" yPosition="below">
-        <button mat-menu-item (click)="this.createDB()">Initialiser la BD</button>
-        <button mat-menu-item (click)="this.getMovies()">Importer les film</button>
-    </mat-menu>
+    <button mat-raised-button id="importer-films" (click)="this.getMovies()" class='left-item' mat-button >Importer les films</button>
   </div>
-    <div id='grid'>
+  <div id='grid'>
         <mat-grid-list cols = "21" rowHeight = "30px">
             <mat-grid-tile [colspan] = "5" [rowspan] = "1" class='tile' *ngFor="let classification of classifications">
                 <div class='tile-content'>
@@ -18,7 +14,7 @@
             <mat-grid-tile [colspan] = "1" [rowspan] = "1" class='tile'>
                 <div class='tile-content'></div>
             </mat-grid-tile>
-            <div *ngFor="let movie of moviez">
+            <div *ngFor="let movie of movies">
                 <mat-grid-tile [colspan] = "5" [rowspan] = "1" class='tile'>
                     <div class='tile-content'>
                         {{movie.titre}}
@@ -45,12 +41,12 @@
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan] = "1" [rowspan] = "1" class='tile'>
-                    <mat-icon [matMenuTriggerFor]="belowMenu2">settings</mat-icon>
+                    <mat-icon [matMenuTriggerFor]="belowMenu">settings</mat-icon>
                 </mat-grid-tile>
-                <mat-menu #belowMenu2="matMenu" yPosition="below">
+                <mat-menu #belowMenu="matMenu" yPosition="below">
                     <button mat-menu-item (click)="this.show(movie)">Voir le film</button>
-                    <button mat-menu-item (click)="this.edit(movie)">Modifier le film</button>
-                    <button mat-menu-item (click)="this.delete(movie)">Supprimer le film</button>
+                    <button mat-menu-item *ngIf="activeMember === null" (click)="this.edit(movie)">Modifier le film</button>
+                    <button mat-menu-item *ngIf="activeMember === null" (click)="this.delete(movie)">Supprimer le film</button>
                 </mat-menu>
             </div>
          </mat-grid-list>

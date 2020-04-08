@@ -2,11 +2,13 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as pg from "pg";
 
-import {Movie} from "../../../common/tables/Movie";
-import {Room} from '../../../common/tables/Room';
+import { Movie } from "../../../common/tables/Movie";
+import { Membre } from '../../../common/tables/Membre';
+import { Room } from '../../../common/tables/Room';
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
+// import { stringify } from "querystring";
 
 @injectable()
 export class DatabaseController {
@@ -50,6 +52,30 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
+
+
+        router.get("/login",
+                (req: Request, res: Response, next: NextFunction) => {
+                // Send the request to the service and send the response
+                this.databaseService.login(req.query.email, req.query.password).then((result: pg.QueryResult) => {
+                const membres: Membre[] = result.rows.map((mem: any) => (
+                    {
+                    ID_membre: mem.id_membre,
+                    nom: mem.nom,
+                    mot_de_passe: mem.mot_de_passe,
+                    courriel: mem.courriel,
+                    no_rue: mem.no_rue,
+                    rue: mem.rue,
+                    code_postal: mem.code_postal,
+                    ville: mem.ville,
+                    isAdmin: mem.isadmin,
+                }));
+                console.log(membres);
+                res.json(membres);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
 
         // router.get("/hotel/hotelNo",
         //            (req: Request, res: Response, next: NextFunction) => {

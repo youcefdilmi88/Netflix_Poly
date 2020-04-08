@@ -3,12 +3,12 @@ export const data: string = `SET search_path = netflixdb;
 INSERT INTO Membre
 (ID_membre, nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville, isAdmin)
 VALUES
-(DEFAULT, 'admin', 'admin', 'admin@admin.ca', 2500, 'Chemin de Polytechnique', 'H3T 1J4', 'Montreal', true),
-(DEFAULT, 'Youcef Dilmi', 'poly123', 'youcef.dilmi@polymtl.ca', 5265, 'Avenue de Courtrai', 'H3W 0B1', 'Montreal', false),
-(DEFAULT, 'Charles-Éric Langlois', 'poly123', 'charles.eric.langlois@polymtl.ca', 150, 'Saint-Catherine St W', 'H2X 3Y2', 'Montreal', false),
-(DEFAULT, 'Foo', 'poly123', 'foo@polymtl.ca', 275, 'Notre-Dame St. East', 'H3T 1J4', 'Montreal', false),
-(DEFAULT, 'Bar', 'poly123', 'bar@polymtl.ca', 1045 , 'Rue des Parlementaires', 'G1A 1A3', 'Quebec', false),
-(DEFAULT, 'Philippe A. Tanguy', 'poly123', 'tanguy@polymtl.ca', 111, 'Wellington St', 'K1A 0A9', 'Ottawa', false);
+(DEFAULT, 'admin', 'admin', 'admin@admin.ca', 2500, 'Chemin de Polytechnique', 'H3T 1J4', 'Montreal', 'true'),
+(DEFAULT, 'Youcef Dilmi', 'poly123', 'youcef.dilmi@polymtl.ca', 5265, 'Avenue de Courtrai', 'H3W 0B1', 'Montreal', 'false'),
+(DEFAULT, 'Charles-Éric Langlois', 'poly123', 'charles.eric.langlois@polymtl.ca', 150, 'Saint-Catherine St W', 'H2X 3Y2', 'Montreal', 'false'),
+(DEFAULT, 'Foo', 'poly123', 'foo@polymtl.ca', 275, 'Notre-Dame St. East', 'H3T 1J4', 'Montreal', 'false'),
+(DEFAULT, 'Bar', 'poly123', 'bar@polymtl.ca', 1045 , 'Rue des Parlementaires', 'G1A 1A3', 'Quebec', 'false'),
+(DEFAULT, 'Philippe A. Tanguy', 'poly123', 'tanguy@polymtl.ca', 111, 'Wellington St', 'K1A 0A9', 'Ottawa', 'false');
 
 INSERT INTO Membre_mensuel
 (ID_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement)
