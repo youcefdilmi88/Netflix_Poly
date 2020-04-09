@@ -1,5 +1,0 @@
-Changer le bouton créer base de données
-
-
-Implémenter LOGIN
--vérifier si l'utilisateur est dans la base de données

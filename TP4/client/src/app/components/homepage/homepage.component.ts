@@ -4,7 +4,7 @@ import { Router} from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { MemberService } from "../services/member-service/memberService";
-import { SignUpModalComponent } from '../modals/sign-up-modal/sign-up-modal.component';
+//import { SignUpModalComponent } from '../modals/sign-up-modal/sign-up-modal.component';
 import { CommunicationService } from '../services/communication-service/communication.service'
 import { Membre } from "../../Membre";
 
@@ -18,17 +18,17 @@ export class HomepageComponent implements OnInit {
   public password: string = "";
   public loginEmailAddress: string = "";
 
-  constructor(public router: Router, public errorDialog: MatDialog, public signUpDialog: MatDialog, public communicationService: CommunicationService, private memberService: MemberService) {}
+  constructor(public router: Router, public errorDialog: MatDialog/*, public signUpDialog: MatDialog*/, public communicationService: CommunicationService, private memberService: MemberService) {}
 
   ngOnInit() {}
 
-  signUp() {
-    this.signUpDialog.open(SignUpModalComponent);
-  }
+  // signUp() {
+  //   this.signUpDialog.open(SignUpModalComponent);
+  // }
 
   logIn() {
     //TODO: DATABASE CALL (CHECK IF EMAIL ADDRESS AND PASSWORD MATCH)
-      console.log(this.communicationService.getDBcreated());
+
       if(this.communicationService.getDBcreated()) {
         let isValid: boolean = false;
         this.communicationService.login(this.loginEmailAddress, this.password).subscribe((membres: Membre[]) => {

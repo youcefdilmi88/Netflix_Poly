@@ -45,8 +45,8 @@
                 </mat-grid-tile>
                 <mat-menu #belowMenu="matMenu" yPosition="below">
                     <button mat-menu-item (click)="this.show(movie)">Voir le film</button>
-                    <button mat-menu-item *ngIf="activeMember === null" (click)="this.edit(movie)">Modifier le film</button>
-                    <button mat-menu-item *ngIf="activeMember === null" (click)="this.delete(movie)">Supprimer le film</button>
+                    <button mat-menu-item *ngIf="activeMember.isAdmin" (click)="this.edit(movie)">Modifier le film</button>
+                    <button mat-menu-item *ngIf="activeMember.isAdmin" (click)="this.delete(movie)">Supprimer le film</button>
                 </mat-menu>
             </div>
          </mat-grid-list>

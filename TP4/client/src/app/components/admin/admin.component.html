@@ -1,2 +1,4 @@
-<app-toolbar></app-toolbar>
-<app-movies-grid></app-movies-grid>
+<app-toolbar (whichGrid)="onToggle($event)">
+</app-toolbar>
+<app-movies-grid *ngIf="gridToShow == 'films'"></app-movies-grid>
+<app-members-grid *ngIf="gridToShow == 'membres'"></app-members-grid>

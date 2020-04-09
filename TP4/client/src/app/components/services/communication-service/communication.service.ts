@@ -39,10 +39,18 @@ export class CommunicationService {
 
     public getMovies(): Observable<any[]> {
 
-        return this.http.get<Movie[]>(this.BASE_URL + "/movie").pipe(
+        return this.http.get<Movie[]>(this.BASE_URL + "/movies").pipe(
             catchError(this.handleError<Movie[]>("getMovies")),
         );
     }
+
+
+    public getMembres(): Observable<any[]> {
+
+      return this.http.get<Movie[]>(this.BASE_URL + "/membres").pipe(
+          catchError(this.handleError<Movie[]>("getMovies")),
+      );
+  }
 
     public login(email: string, password: string): Observable<Membre[]> {
         return this.http.get<Membre[]>(this.BASE_URL + `/login?email=${email}&password=${password}`).pipe(

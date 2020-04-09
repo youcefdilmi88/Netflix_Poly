@@ -35,7 +35,7 @@ export class DatabaseController {
                     });
         });
 
-        router.get("/movie",
+        router.get("/movies",
                    (req: Request, res: Response, next: NextFunction) => {
                     // Send the request to the service and send the response
                     this.databaseService.getMovies().then((result: pg.QueryResult) => {
@@ -52,6 +52,28 @@ export class DatabaseController {
                     console.error(e.stack);
                 });
             });
+
+        router.get("/membres",
+            (req: Request, res: Response, next: NextFunction) => {
+             // Send the request to the service and send the response
+             this.databaseService.getMembres().then((result: pg.QueryResult) => {
+             const membres: Membre[] = result.rows.map((mem: any) => (
+                 {
+                 ID_membre: mem.id_membre,
+                 nom: mem.nom,
+                 mot_de_passe: mem.mot_de_passe,
+                 courriel: mem.courriel,
+                 no_rue: mem.no_rue,
+                 rue: mem.rue,
+                 code_postal: mem.code_postal,
+                 ville: mem.ville,
+                 isAdmin: mem.isadmin
+             }));
+             res.json(membres);
+         }).catch((e: Error) => {
+             console.error(e.stack);
+         });
+     });
 
 
         router.get("/login",
