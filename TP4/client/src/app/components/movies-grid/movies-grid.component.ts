@@ -67,14 +67,13 @@ export class MoviesGridComponent implements OnInit {
 
 
   show(movie: Movie) {
+    // TODO: get distribution et nomination du film
+
     this.viewMovieDialog.open(ViewMovieModalComponent, {
       data: {
-        id: movie.ID_film,
-        title: movie.titre,
-        genre: movie.genre,
-        duration: movie.duree_totale_min,
-        //director: movie.director,
-        prodYear: movie.annee_prod
+        movie: movie,
+        distribution: null, // Et remplacer ici
+        nominations: null,  // Et ici
       }
     });
   }

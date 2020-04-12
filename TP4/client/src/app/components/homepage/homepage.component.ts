@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
   public password: string = "";
   public loginEmailAddress: string = "";
 
-  constructor(public router: Router, public errorDialog: MatDialog/*, public signUpDialog: MatDialog*/, public communicationService: CommunicationService, private memberService: MemberService) {}
+  constructor(public router: Router, public errorDialog: MatDialog/*, public signUpDialog: MatDialog*/, public testDialog: MatDialog, public communicationService: CommunicationService, private memberService: MemberService) {}
 
   ngOnInit() {}
 

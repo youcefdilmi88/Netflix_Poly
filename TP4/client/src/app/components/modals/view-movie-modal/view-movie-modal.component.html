@@ -1,19 +1,53 @@
 <div id="main">
-    <h1 mat-dialog-title>{{this.data.title}} ({{this.data.id}})</h1>
-    <div mat-dialog-content>
-        <mat-grid-list cols = "2" rowHeight="30px" class="content">
-            <mat-grid-tile><span class="tile-content">Genre</span></mat-grid-tile>
-            <mat-grid-tile><span class="tile-content">{{this.data.genre}}</span></mat-grid-tile>
-            <mat-grid-tile><span class="tile-content">Durée (min)</span></mat-grid-tile>
-            <mat-grid-tile><span class="tile-content">{{this.data.duration}}</span></mat-grid-tile>
-            <!-- <mat-grid-tile><span class="tile-content">Réalisateur</span></mat-grid-tile>
-            <mat-grid-tile><span class="tile-content">{{this.data.director}}</span></mat-grid-tile> -->
-            <mat-grid-tile><span class="tile-content">Année de production</span></mat-grid-tile>
-            <mat-grid-tile><span class="tile-content">{{this.data.prodYear}}</span></mat-grid-tile>
-            <!-- TO DO AJOUTER LES OSCARS LES LES EMPLOYÉS DU FILM -->
-        </mat-grid-list>
+    <div>
+        <h1 mat-dialog-title>{{this.data.movie.title}} ({{this.data.movie.prodYear}})</h1>
+        <div class="whitespace">
+            <span mat-dialog-content>Durée totale : {{this.hours}}h{{this.data.movie.duration % 60}}</span>
+            <span mat-dialog-content>Genre : {{this.data.movie.genre}}</span>
+        </div>
     </div>
-    <div id="confirm">
-        <button mat-button (click)="this.close()">Ok</button>
+    <div id="distribution">
+        <span mat-dialog-title>Distribution</span>
+        <div class="whitespace">
+            <div id="role-list">
+                <span style="font-weight: bold">Acteurs principaux</span>
+                <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'principal'">{{participant.nom}}</span>
+                </div>
+            </div>
+            <div id="role-list">
+                <span style="font-weight: bold">Acteurs secondaires</span>
+                <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'secondaire'">{{participant.nom}}</span>
+                </div>
+            </div>
+            <div id="role-list">
+                <span style="font-weight: bold">Réalisateurs</span>
+                <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'realisateur'">{{participant.nom}}</span>
+                </div>
+            </div>
+            <div id="role-list">
+                <span style="font-weight: bold">Auteur</span>
+                <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'auteur'">{{participant.nom}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="nominations">
+        <span mat-dialog-title>Nominations</span>
+        <div class="whitespace">
+            <div *ngFor="let nomination of this.data.nominations">
+                <span *ngIf="nomination.isWon">{{nomination.categorie}} (gagné)</span>
+                <span *ngIf="!nomination.isWon">{{nomination.categorie}} (nominé)</span>
+            </div>
+        </div>
+    </div>
+    <div id="close">
+        <button mat-button (click)="this.close()">Fermer</button>
+    </div>
+    <div id="watch">
+        <button mat-button (click)="this.watch()">Visionner</button>
     </div>
 </div>

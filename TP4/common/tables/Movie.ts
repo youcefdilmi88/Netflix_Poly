@@ -4,5 +4,4 @@ export interface Movie {
     "genre": string;
     "annee_prod": number;
     "duree_totale_min": number;
-
 }
