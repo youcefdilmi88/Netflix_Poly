@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HomepageComponent } from '../homepage/homepage.component';
-import { MemberComponent } from '../member/member.component';
-import { AdminComponent } from '../admin/admin.component';
+import { MemberComponent } from '../member-page/member.component';
+import { AdminComponent } from '../admin-page/admin.component';
 import { Routes } from '@angular/router';
 
-export const appRoutes: Routes = [  
+export const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent},
   { path: 'member', component: MemberComponent },

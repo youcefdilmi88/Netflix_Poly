@@ -19,8 +19,8 @@ import { AddParticipantModalComponent } from './components/modals/add-participan
 import { SignUpModalComponent } from './components/modals/sign-up-modal/sign-up-modal.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { RouterModule } from '@angular/router';
-import { MemberComponent } from './components/member/member.component';
-import { AdminComponent } from './components/admin/admin.component';
+import { MemberComponent } from './components/member-page/member.component';
+import { AdminComponent } from './components/admin-page/admin.component';
 import { CommunicationService } from "./components/services/communication-service/communication.service";
 import { MemberService } from "./components/services/member-service/memberService";
 import { MembersGridComponent } from './components/members-grid/members-grid.component';

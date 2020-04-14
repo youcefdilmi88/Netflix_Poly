@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AddMovieModalComponent } from '../modals/add-movie-modal/add-movie-modal.component';
 import { AddParticipantModalComponent } from '../modals/add-participant-modal/add-participant-modal.component';
-import { Membre } from "../../Membre";
+import { Membre } from "../../models/Membre";
 import { MemberService } from "../services/member-service/memberService";
 import { Router } from '@angular/router';
 import { SignUpModalComponent } from '../modals/sign-up-modal/sign-up-modal.component';

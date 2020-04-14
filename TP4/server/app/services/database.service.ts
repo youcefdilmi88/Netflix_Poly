@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-import { Room } from "../../../common/tables/Room";
+import { Room } from "../tables/Room";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
 
@@ -65,16 +65,34 @@ export class DatabaseService {
 
     // }
 
-    public createHotel(hotelNo: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-        const values: string[] = [
-            hotelNo,
-            hotelName,
-            city
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.Hotel VALUES($1, $2, $3);`;
 
-        return this.pool.query(queryText, values);
+
+    public createMovie(titre: string, genre: string, annee_prod: number, duree_totale_min: number): Promise<pg.QueryResult> {
+        return this.pool.query(`INSERT INTO netflixdb.Film (ID_film, titre, genre, annee_prod, duree_totale_min) VALUES(DEFAULT, '${titre}', '${genre}', '${annee_prod}', '${duree_totale_min}') RETURNING ID_film;`);
     }
+
+    public createMembre(nom: string, mot_de_passe: string, courriel: string, no_rue: number, rue: string, code_postal: string, ville: string,  isAdmin: boolean, monthly: boolean): Promise<pg.QueryResult> {
+        return this.pool.query(`INSERT INTO netflixdb.Membre (ID_membre, nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville, isAdmin) VALUES(DEFAULT, '${nom}', '${mot_de_passe}', '${courriel}', '${no_rue}', '${rue}', '${code_postal}', '${ville}', '${isAdmin}') RETURNING *;`);
+    }
+
+    public createMembreMensuel(ID_membre: number, prix_abonnement: number, date_debut_abonnement: Date, date_fin_abonnement: Date): Promise<pg.QueryResult> {
+        
+        const insertText = `INSERT INTO netflixdb.Membre_mensuel 
+                          (ID_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement) 
+                          VALUES
+                          ($1, $2, $3, $4)
+                          RETURNING *;`
+        return this.pool.query(insertText, [ID_membre, prix_abonnement, date_debut_abonnement, date_fin_abonnement]);
+    }
+
+    public createMembrePPV(ID_membre: number): Promise<pg.QueryResult> {
+        return this.pool.query(`INSERT INTO netflixdb.Membre_payperview (ID_membre, nb_film_payperview) VALUES(${ID_membre}, 0) RETURNING *;`);
+    }
+
+    public createCreditCard(ID_membre: number, titulaire: string, cardNum: number, expDate: string, CCV: number): Promise<pg.QueryResult> {
+        return this.pool.query(`INSERT INTO netflixdb.Carte_credit (ID_carte, ID_membre, titulaire, numero, expiration_YYMM, CCV) VALUES(DEFAULT, ${ID_membre}, '${titulaire}', ${cardNum}, '${expDate}', ${CCV}) RETURNING *;`);
+    }
+	
 	
 	public deleteHotel(/*Todo*/): void /*TODO*/  {
 		/*TODO*/

@@ -4,8 +4,8 @@ import { Injectable } from "@angular/core";
 //import {Room} from "../../../../common/tables/Room";
 import { of, Observable,concat, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Movie } from "../../../../../../common/tables/Movie";
-import { Membre } from "../../../Membre";
+import { Movie } from "../../../models/Movie";
+import { Membre } from "../../../models/Membre";
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -59,6 +59,8 @@ export class CommunicationService {
 
     }
 
+
+
     public getHotelPKs(): Observable<string[]> {
 
         return this.http.get<string[]>(this.BASE_URL + "/hotel/hotelNo").pipe(
@@ -66,11 +68,18 @@ export class CommunicationService {
         );
     }
 
-    public insertHotel(hotel: any): Observable<number> {
-        return this.http.post<number>(this.BASE_URL + "/hotel/insert", hotel).pipe(
-            catchError(this.handleError<number>("inserHotel")),
+    public insertMovie(movie: any): Observable<number> {
+        return this.http.post<number>(this.BASE_URL + "/movies/insert", movie).pipe(
+            catchError(this.handleError<number>("insertMovie")),
         );
     }
+
+    public insertMembre(membre: Membre): Observable<number> {
+      return this.http.post<number>(this.BASE_URL + "/membres/insert", membre).pipe(
+          catchError(this.handleError<number>("insertMembre")),
+      );
+  }
+
 
     // public insertRoom(room: Room): Observable<number> {
     //     return this.http.post<number>(this.BASE_URL + "/rooms/insert", room).pipe(

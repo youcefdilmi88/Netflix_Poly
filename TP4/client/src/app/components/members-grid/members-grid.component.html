@@ -35,6 +35,13 @@
                         {{membre.isAdmin}}
                     </div>
                 </mat-grid-tile>
+                <mat-grid-tile [colspan] = "1" [rowspan] = "1" class='tile'>
+                  <mat-icon [matMenuTriggerFor]="belowMenu">settings</mat-icon>
+              </mat-grid-tile>
+              <mat-menu #belowMenu="matMenu" yPosition="below">
+                  <button mat-menu-item >Voir le membre</button>
+                  <!-- (click)="this.show(membre)" -->
+              </mat-menu>
             </div>
          </mat-grid-list>
     </div>

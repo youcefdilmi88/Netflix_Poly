@@ -17,7 +17,6 @@ export class AdminComponent implements OnInit {
   public gridToShow: string = "films";
 
   onToggle(grid: string){
-    console.log(grid);
     this.gridToShow = grid;
   }
 

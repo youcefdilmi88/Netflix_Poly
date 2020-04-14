@@ -24,10 +24,10 @@ export class AddParticipantModalComponent implements OnInit {
     if(this.newFirstName !== "" && this.newLastName !== "" && this.newRole !== "" && this.newSex !== "" && this.newAge > 0 && this.newAge < 100 && this.newSalary > 0 && this.newNationality !== "") {
 
       // TODO : DATABASE CALL (ADD PARTICIPANT)
-      
+
       this.dialogRef.close();
 
-    } else {  
+    } else {
       this.errorDialog.open(ErrorModalComponent, {
         data: "Veuillez entrer des valeurs valides!"
       });

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Classification } from '../../classification';
-import { SortType } from 'src/app/enums';
-import { Movie } from '../../../../../common/tables/Movie';
+import { Classification } from '../../models/classification';
+import { SortType } from 'src/app/models/enums';
+import { Movie } from '../../../../../server/app/tables/Movie';
 import { MatDialog } from '@angular/material';
 import { EditModalComponent } from '../modals/edit-modal/edit-modal.component';
 import { ViewMovieModalComponent } from '../modals/view-movie-modal/view-movie-modal.component';
 import { CommunicationService } from '../services/communication-service/communication.service';
 import { MemberService } from "../services/member-service/memberService";
-import { Membre } from "../../Membre";
+import { Membre } from "../../models/Membre";
 
 
 @Component({
@@ -35,7 +35,6 @@ export class MoviesGridComponent implements OnInit {
 
     // TODO: DATABASE CALL (GET MOVIE LIST)
     this.communicationService.listen().subscribe((m:any) => {
-      console.log(m);
       this.getMovies();
   });
 
@@ -59,7 +58,6 @@ export class MoviesGridComponent implements OnInit {
 
   public getMovies(): void {
     this.communicationService.getMovies().subscribe((movies: Movie[]) => {
-        console.log(movies);
         this.movies = movies;
         console.log(this.movies)
     });

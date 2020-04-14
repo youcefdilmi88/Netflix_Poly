@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
+import { Membre } from '../../../models/Membre';
+import { CommunicationService } from '../../services/communication-service/communication.service';
 
 @Component({
   selector: 'app-sign-up-modal',
@@ -11,26 +13,28 @@ export class SignUpModalComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   emailAddress: string = "";
-  adressNumber: number;
+  password: string;
+  adressNumber: string;
   streetName: string = "";
-  appartmentNumber: string = "";
   postalCode: string = "";
   city: string = "";
+  isAdmin: boolean;
   monthly: boolean;
-  creditCardNum: number;
-  expirationMonth: number;
-  expirationYear: number;
-  ccv: number;
-  password: string;
+  creditCardNum: string;
+  expirationMonth: string;
+  expirationYear: string;
+  ccv: string;
   confirmation: string;
 
-  constructor(private dialogRef: MatDialogRef<SignUpModalComponent>, public errorDialog: MatDialog) {}
+  public currentMembre: Membre;
+
+  constructor(private dialogRef: MatDialogRef<SignUpModalComponent>, public errorDialog: MatDialog, private communicationService: CommunicationService) {}
 
   ngOnInit() { }
 
   signUp() {
     if (this.checkIfValid()) {
-      //TODO: DATABASE CALL (CREATE NEW MEMBER)
+      this.insertMembre(this.currentMembre)
       this.dialogRef.close();
     } else if (this.password === this.confirmation) {
       this.errorDialog.open(ErrorModalComponent, {
@@ -42,6 +46,18 @@ export class SignUpModalComponent implements OnInit {
       })
     }
   }
+
+
+
+  public insertMembre(newMembre: Membre): void {
+    this.communicationService.insertMembre(newMembre).subscribe((res: number) => {
+        console.log(res);
+        if (res > 0) {
+            this.communicationService.filter("update");
+        }
+    });
+  }
+
 
   checkIfValid(): boolean {
     let isValid: boolean = true;
@@ -64,20 +80,22 @@ export class SignUpModalComponent implements OnInit {
     isValid = isValid && regexp2.test(this.postalCode);
     console.log(isValid);
 
-    isValid = isValid && (this.adressNumber !== null) && (Number.isInteger(this.adressNumber));
+    isValid = isValid && (this.adressNumber !== null) && (Number.isInteger(parseInt(this.adressNumber)));
     console.log(isValid);
-    isValid = isValid && (this.creditCardNum !== null) && (Number.isInteger(this.creditCardNum)) && (this.creditCardNum.toString().length === 16);
+    isValid = isValid && (this.creditCardNum !== null) && (Number.isInteger(parseInt(this.creditCardNum))) && (this.creditCardNum.replace(/\s/g, '').length === 16);
     console.log(isValid);
-    isValid = isValid && (this.expirationMonth !== null) && (Number.isInteger(this.expirationMonth)) && (this.expirationMonth >= 1 && this.expirationMonth <= 12);
+    isValid = isValid && (this.expirationMonth !== null) && (Number.isInteger(parseInt(this.expirationMonth))) && (parseInt(this.expirationMonth) >= 1 && parseInt(this.expirationMonth) <= 12);
     console.log(isValid);
-    isValid = isValid && (this.expirationYear !== null) && (Number.isInteger(this.expirationYear));
+    isValid = isValid && (this.expirationYear !== null) && (Number.isInteger(parseInt(this.expirationYear)));
     console.log(isValid);
-    isValid = isValid && (this.ccv !== null) && (Number.isInteger(this.expirationYear)) && (this.creditCardNum.toString().length === 3);
+    isValid = isValid && (this.ccv !== null) && (Number.isInteger(parseInt(this.ccv))) && (this.ccv.length === 3);
     console.log(isValid);
     isValid = isValid && this.password === this.confirmation;
     console.log(isValid);
-
+    this.currentMembre = new Membre(0, `${this.firstName} ${this.lastName}`, this.password, this.emailAddress, parseInt(this.adressNumber), this.streetName, this.postalCode, this.city, this.isAdmin, this.monthly, parseInt(this.creditCardNum.replace(/\s/g, '')), this.expirationMonth + (this.expirationYear).slice(-2), parseInt(this.ccv));
     return isValid;
   }
 
 }
+
+

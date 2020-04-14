@@ -2,9 +2,9 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as pg from "pg";
 
-import { Movie } from "../../../common/tables/Movie";
-import { Membre } from '../../../common/tables/Membre';
-import { Room } from '../../../common/tables/Room';
+import { Movie } from "../tables/Movie";
+import { Membre } from '../tables/Membre';
+import { Room } from '../tables/Room';
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -13,6 +13,15 @@ import Types from "../types";
 @injectable()
 export class DatabaseController {
     public constructor(@inject(Types.DatabaseService) private databaseService: DatabaseService) { }
+
+    public fin_abonnement(duree_abonnement: number): Date {
+        let d = new Date();
+        return new Date(d.setFullYear(d.getFullYear() + duree_abonnement));
+    }
+
+    public toDateString(currentDate: Date): string {
+        return currentDate.toISOString().split('T')[0];
+    }
 
     public get router(): Router {
         const router: Router = Router();
@@ -109,20 +118,66 @@ export class DatabaseController {
         //             });
         //           });
 
-        router.post("/hotel/insert",
+        router.post("/movies/insert",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const hotelNo: string = req.body.hotelNo;
-                        const hotelName: string = req.body.hotelName;
-                        const city: string = req.body.city;
-                        this.databaseService.createHotel(hotelNo, hotelName, city).then((result: pg.QueryResult) => {
+                        const titre: string = req.body.titre;
+                        const genre: string = req.body.genre;
+                        const annee_prod: number = req.body.annee_prod;
+                        const duree_totale_min: number = req.body.duree_totale_min;
+                        this.databaseService.createMovie(titre, genre, annee_prod, duree_totale_min).then((result: pg.QueryResult) => {
+                        console.log(result.rows[0].id_film);
                         res.json(result.rowCount);
+
                     }).catch((e: Error) => {
                         console.error(e.stack);
                         res.json(-1);
                     });
         });
 
+
+        
+
+        router.post("/membres/insert",
+            (req: Request, res: Response, next: NextFunction) => {
+                const nom: string = req.body.nom;
+                const mot_de_passe: string = req.body.mot_de_passe;
+                const courriel: string = req.body.courriel;
+                const no_rue: number = req.body.no_rue;
+                const rue: string = req.body.rue;
+                const code_postal: string = req.body.code_postal;
+                const ville: string = req.body.ville;
+                const isAdmin: boolean = req.body.isAdmin;
+                const monthly: boolean = req.body.monthly;
+                const cardNum: number = req.body.cardNum;
+                const expDate: string = req.body.expDate;
+                const CCV: number = req.body.CCV;
+                this.databaseService.createMembre(nom, mot_de_passe, courriel, no_rue, rue, code_postal, ville, isAdmin, monthly).then((result: pg.QueryResult) => {
+                    this.databaseService.createCreditCard(result.rows[0].id_membre, nom, cardNum, expDate, CCV).then((result: pg.QueryResult) => {
+                        console.log(result.rows);
+                        }).catch((e: Error) => {
+                            console.error(e.stack);
+                            res.json(-1);
+                        });
+                    if (monthly) {
+                        this.databaseService.createMembreMensuel(result.rows[0].id_membre, 15.99, new Date(), this.fin_abonnement(1)).then((result: pg.QueryResult) => {
+                        res.send(result);
+                        }).catch((e: Error) => {
+                            console.error(e.stack);
+                            res.json(-1);
+                        });
+                    } else {
+                        this.databaseService.createMembrePPV(result.rows[0].id_membre).then((result: pg.QueryResult) => {
+                        res.send(result);
+                        }).catch((e: Error) => {
+                            console.error(e.stack);
+                            res.json(-1);
+                        });
+                    }
+                })
+            });
+
 		router.delete("/hotel/insert", /*TODO*/);
+
 
         router.get("/rooms",
                    (req: Request, res: Response, next: NextFunction) => {

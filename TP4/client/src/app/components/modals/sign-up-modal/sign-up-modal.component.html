@@ -18,19 +18,14 @@
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile [colspan] = "6"><span class="tile-title">Adresse postale</span></mat-grid-tile>
-            <mat-grid-tile [colspan] = "2" class="tile-content">
+            <mat-grid-tile [colspan] = "3" class="tile-content">
                 <mat-form-field>
                     <input matInput value="adressNumber" placeholder="Num." [(ngModel)]="adressNumber"/>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan] = "2" class="tile-content">
+            <mat-grid-tile [colspan] = "3" class="tile-content">
                 <mat-form-field>
                     <input matInput value="streetName" placeholder="Rue" [(ngModel)]="streetName"/>
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan] = "2" class="tile-content">
-                <mat-form-field>
-                    <input matInput value="appartmentNumber" placeholder="App." [(ngModel)]="appartmentNumber"/>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile [colspan] = "3" class="tile-content">
@@ -43,20 +38,19 @@
                     <input matInput value="postalCode" placeholder="Code postal" [(ngModel)]="postalCode"/>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan] = "6"><span class="tile-title">Type d'Abonnement</span></mat-grid-tile>
-            <mat-grid-tile [colspan] = "6"><input type="radio" [(ngModel)]="monthly" [value]="true"><span>Mensuel</span></mat-grid-tile>
-            <mat-grid-tile [colspan] = "6"><input type="radio" [(ngModel)]="monthly" [value]="false"><span>À la vue</span></mat-grid-tile>
+            <mat-grid-tile [colspan] = "6"><span class="tile-title">Type d'abonnement</span></mat-grid-tile>
+            <mat-grid-tile [colspan] = "1"><input type="radio" name="inscription" [(ngModel)]="monthly" [value]="true">Mensuel</mat-grid-tile>
+            <mat-grid-tile [colspan] = "1"><input type="radio" name="inscription" [(ngModel)]="monthly" [value]="false">Pay per view</mat-grid-tile>
             <mat-grid-tile [colspan] = "6"><span class="tile-title">Carte de crédit</span></mat-grid-tile>
             <mat-grid-tile [colspan] = "6" class="tile-content">
                 <mat-form-field>
-                    <input matInput value="creditCardNumber" placeholder="Num. carte de crédit" [(ngModel)]="creditCardNumber"/>
+                    <input matInput value="creditCardNumber" placeholder="Num. carte de crédit" [(ngModel)]="creditCardNum"/>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile [colspan] = "4"><span>Expiration</span></mat-grid-tile>
-            <mat-grid-tile [colspan] = "2"></mat-grid-tile>
+            <mat-grid-tile [colspan] = "6"><span class="tile-title">Expiration</span></mat-grid-tile>
             <mat-grid-tile [colspan] = "2" class="tile-content">
                 <mat-form-field>
-                    <input matInput value="expirationMonth" placeholder="Mois" [(ngModel)]="expirationMonth"/>
+                  <input matInput value="expirationMonth" placeholder="Mois" [(ngModel)]="expirationMonth"/>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile [colspan] = "2" class="tile-content">
@@ -69,6 +63,9 @@
                     <input matInput value="ccv" placeholder="CCV" [(ngModel)]="ccv"/>
                 </mat-form-field>
             </mat-grid-tile>
+            <mat-grid-tile [colspan] = "6"><span class="tile-title">Administrateur</span></mat-grid-tile>
+            <mat-grid-tile [colspan] = "1"><input type="radio" name="admin" [(ngModel)]="isAdmin" [value]="true">Oui</mat-grid-tile>
+            <mat-grid-tile [colspan] = "1"><input type="radio" name="admin" [(ngModel)]="isAdmin" [value]="false">Non</mat-grid-tile>
             <mat-grid-tile [colspan] = "6"><span class="tile-title">Mot de passe</span></mat-grid-tile>
             <mat-grid-tile [colspan] = "6" class="tile-content">
                 <mat-form-field>

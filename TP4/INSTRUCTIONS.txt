@@ -3,12 +3,14 @@
 3) EFFECTUER LA REQUÊTE SUIVANTE DANS LE "Query Tool": "CREATE USER admin encrypted password 'admin';
 GRANT ALL PRIVILEGES ON DATABASE netflixdb to admin;".
 4) OUVRIR UN TERMINAL DANS LE DOSSIER "server" qui existe dans le dossier "TP4".
-5) EXECUTER LA COMMANDE "npm start" DANS LE DOSSIER "server".
-6) OUVRIR UN TERMINAL DANS LE DOSSIER "client" qui existe dans le dossier "TP4".
-7) EXECUTER LA COMMANDE "npm start" DANS LE DOSSIER "client".
-8) VOTRE BROWSER DEVRAIT S'OUVRIR ET AFFICHER L'APPLICATION, SI CE N'EST PAS LE CAS, NAVIGUEZ VERS L'ADRESSE : "http://localhost:4200/home" DANS VOTRE FURETEUR.
-9) CLIQUEZ SUR "Initialiser la base de données"
-10) POUR VOUS CONNECTER EN TANT QU'ADMINISTRATEUR, UTILISEZ LES CREDENTIALS SUIVANTS:
+5) EXECUTER LA COMMANDE "npm install" DANS LE DOSSIER "server".
+6) EXECUTER LA COMMANDE "npm start" DANS LE DOSSIER "server".
+7) EXECUTER LA COMMANDE "npm install" DANS LE DOSSIER "client".
+8) OUVRIR UN TERMINAL DANS LE DOSSIER "client" qui existe dans le dossier "TP4".
+9) EXECUTER LA COMMANDE "npm start" DANS LE DOSSIER "client".
+10) VOTRE BROWSER DEVRAIT S'OUVRIR ET AFFICHER L'APPLICATION, SI CE N'EST PAS LE CAS, NAVIGUEZ VERS L'ADRESSE : "http://localhost:4200/home" DANS VOTRE FURETEUR.
+11) CLIQUEZ SUR "Initialiser la base de données"
+12) POUR VOUS CONNECTER EN TANT QU'ADMINISTRATEUR, UTILISEZ LES CREDENTIALS SUIVANTS:
         Adresse courriel: admin@admin.ca
         Mot de passe: admin
    POUR VOUS CONNECTER EN TANT QU'UTILISATEUR, UTILISEZ LES CREDENTIALS SUIVANTS:
@@ -16,3 +18,10 @@ GRANT ALL PRIVILEGES ON DATABASE netflixdb to admin;".
         Mot de passe: poly123
 
             
+TO DO:
+afficher un film lorsqu' on clique sur voir films N/A lorsque ajouté par UTILISATEUR
+        formulaire pour information principales
+        fetch les information secondaire d'un film dans les tables secondaires à partir de son ID (photos à voir)
+        afficher les information dans le modal afficher film 
+supprimer un film
+modifier un film
