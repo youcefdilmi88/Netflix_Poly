@@ -12,13 +12,32 @@ mat-dialog-container {
     text-align: center;
 }
 
+.whitespace {
+    margin-bottom: 20px;
+}
+
 .tile-content {
     position: absolute;
     left: 15px;
     bottom: 0px;
 }
 
-#confirm {
+#watch {
     float: right;
     margin-top: 10px;
+}
+
+#close {
+    float: left;
+    margin-top: 10px;
+}
+
+.mat-dialog-title {
+    margin: 0;
+}
+
+#role-list {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
 }
