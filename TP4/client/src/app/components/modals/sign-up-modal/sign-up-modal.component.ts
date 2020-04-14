@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
 import { Membre } from '../../../models/Membre';
-import { CommunicationService } from '../../services/communication-service/communication.service';
+import { CommunicationService } from '../../../services/communication-service/communication.service';
 
 @Component({
   selector: 'app-sign-up-modal',

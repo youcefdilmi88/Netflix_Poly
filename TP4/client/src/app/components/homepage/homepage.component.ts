@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
-import { MemberService } from "../services/member-service/memberService";
+import { MemberService } from "../../services/member-service/memberService";
 //import { SignUpModalComponent } from '../modals/sign-up-modal/sign-up-modal.component';
-import { CommunicationService } from '../services/communication-service/communication.service'
+import { CommunicationService } from '../../services/communication-service/communication.service'
 import { Membre } from "../../models/Membre";
 
 @Component({
@@ -18,13 +18,9 @@ export class HomepageComponent implements OnInit {
   public password: string = "";
   public loginEmailAddress: string = "";
 
-<<<<<<< HEAD
 
 
   constructor(public router: Router, public errorDialog: MatDialog/*, public signUpDialog: MatDialog*/, public communicationService: CommunicationService, private memberService: MemberService) {}
-=======
-  constructor(public router: Router, public errorDialog: MatDialog/*, public signUpDialog: MatDialog*/, public testDialog: MatDialog, public communicationService: CommunicationService, private memberService: MemberService) {}
->>>>>>> b6f4c02a04b538792c73e61cc35b043654d87efa
 
   ngOnInit() {}
 

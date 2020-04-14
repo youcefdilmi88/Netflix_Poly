@@ -5,6 +5,8 @@ import * as pg from "pg";
 import { Movie } from "../tables/Movie";
 import { Membre } from '../tables/Membre';
 import { Room } from '../tables/Room';
+import { Participant } from '../tables/participant';
+import { Nomination } from '../tables/nomination';
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -107,6 +109,50 @@ export class DatabaseController {
                 console.error(e.stack);
             });
         });
+
+
+        router.get("/nominations",
+        (req: Request, res: Response, next: NextFunction) => {
+                // Send the request to the service and send the response
+                this.databaseService.getNominations(req.query.id).then((result: pg.QueryResult) => {
+                const nominations: Nomination[] = result.rows.map((nom: any) => (
+                    {
+                        ID_oscar: nom.id_oscar,
+                        ID_film: nom.id_film,
+                        ID_ceremonie: nom.id_ceremonie,
+                        isWon: nom.iswon,
+                        categorie: nom.categorie,
+                }));
+                console.log(nominations);
+                res.json(nominations);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+        router.get("/distribution",
+        (req: Request, res: Response, next: NextFunction) => {
+                // Send the request to the service and send the response
+                this.databaseService.getDistribution(req.query.id).then((result: pg.QueryResult) => {
+                const distribution: Participant[] = result.rows.map((par: any) => (
+                    {
+                        ID_film: par.id_film,
+                        ID_employe: par.id_employe,
+                        role_employe: par.role_employe,
+                        salaire: par.salaire,
+                        nom: par.nom,
+                        age: par.age,
+                        sexe: par.sexe,
+                        nationalite: par.nationalite,
+                }));
+                console.log(distribution);
+                res.json(distribution);
+            }).catch((e: Error) => {
+                console.error(e.stack);
+            });
+        });
+
+
 
         // router.get("/hotel/hotelNo",
         //            (req: Request, res: Response, next: NextFunction) => {

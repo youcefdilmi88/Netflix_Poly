@@ -4,8 +4,10 @@ import { Injectable } from "@angular/core";
 //import {Room} from "../../../../common/tables/Room";
 import { of, Observable,concat, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Movie } from "../../../models/Movie";
-import { Membre } from "../../../models/Membre";
+import { Movie } from "../../models/Movie";
+import { Membre } from "../../models/Membre";
+import { Nomination } from '../../models/nomination'
+import { Participant } from '../../models/participant'
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -38,31 +40,41 @@ export class CommunicationService {
 
 
     public getMovies(): Observable<any[]> {
-
         return this.http.get<Movie[]>(this.BASE_URL + "/movies").pipe(
             catchError(this.handleError<Movie[]>("getMovies")),
         );
     }
 
+    public getNominations(ID_film: number): Observable<any[]> {
+      return this.http.get<Nomination[]>(this.BASE_URL + `/nominations?id=${ID_film}`).pipe(
+          catchError(this.handleError<Movie[]>("getNominations")),
+      );
+    }
+
+    public getDistribution(ID_film: number): Observable<any[]> {
+      return this.http.get<Participant[]>(this.BASE_URL + `/distribution?id=${ID_film}`).pipe(
+          catchError(this.handleError<Movie[]>("getDistribution")),
+      );
+    }
 
     public getMembres(): Observable<any[]> {
-
       return this.http.get<Movie[]>(this.BASE_URL + "/membres").pipe(
           catchError(this.handleError<Movie[]>("getMovies")),
       );
-  }
+    }
+
+
+
 
     public login(email: string, password: string): Observable<Membre[]> {
         return this.http.get<Membre[]>(this.BASE_URL + `/login?email=${email}&password=${password}`).pipe(
           catchError(this.handleError<Membre[]>("login")),
-    );
-
+      );
     }
 
 
 
     public getHotelPKs(): Observable<string[]> {
-
         return this.http.get<string[]>(this.BASE_URL + "/hotel/hotelNo").pipe(
             catchError(this.handleError<string[]>("getHotelPKs")),
         );
@@ -78,7 +90,7 @@ export class CommunicationService {
       return this.http.post<number>(this.BASE_URL + "/membres/insert", membre).pipe(
           catchError(this.handleError<number>("insertMembre")),
       );
-  }
+    }
 
 
     // public insertRoom(room: Room): Observable<number> {

@@ -1,8 +1,8 @@
 <div id="main">
     <div>
-        <h1 mat-dialog-title>{{this.data.movie.title}} ({{this.data.movie.prodYear}})</h1>
+        <h1 mat-dialog-title>{{this.data.movie.titre}} ({{this.data.movie.annee_prod}})</h1>
         <div class="whitespace">
-            <span mat-dialog-content>Durée totale : {{this.hours}}h{{this.data.movie.duration % 60}}</span>
+            <span mat-dialog-content>Durée totale : {{this.hours}}h{{this.data.movie.duree_totale_min % 60}}</span>
             <span mat-dialog-content>Genre : {{this.data.movie.genre}}</span>
         </div>
     </div>
@@ -11,26 +11,38 @@
         <div class="whitespace">
             <div id="role-list">
                 <span style="font-weight: bold">Acteurs principaux</span>
-                <div *ngFor="let participant of this.data.distribution">
-                    <span *ngIf="participant.role_employe === 'principal'">{{participant.nom}}</span>
-                </div>
+                  <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'primaire'">{{participant.nom}}</span>
+                  </div>
+                  <div>
+                    <span *ngIf="!containsPrimaire">N/A</span>
+                  </div>
             </div>
             <div id="role-list">
                 <span style="font-weight: bold">Acteurs secondaires</span>
                 <div *ngFor="let participant of this.data.distribution">
                     <span *ngIf="participant.role_employe === 'secondaire'">{{participant.nom}}</span>
                 </div>
-            </div>
-            <div id="role-list">
-                <span style="font-weight: bold">Réalisateurs</span>
-                <div *ngFor="let participant of this.data.distribution">
-                    <span *ngIf="participant.role_employe === 'realisateur'">{{participant.nom}}</span>
+                <div>
+                  <span *ngIf="!containsSecondaire">N/A</span>
                 </div>
             </div>
             <div id="role-list">
-                <span style="font-weight: bold">Auteur</span>
+                <span style="font-weight: bold">Réalisateur</span>
+                <div *ngFor="let participant of this.data.distribution">
+                    <span *ngIf="participant.role_employe === 'realisateur'">{{participant.nom}}</span>
+                </div>
+                <div>
+                  <span *ngIf="!containsRealisateur">N/A</span>
+                </div>
+            </div>
+            <div id="role-list">
+                <span style="font-weight: bold">Auteurs</span>
                 <div *ngFor="let participant of this.data.distribution">
                     <span *ngIf="participant.role_employe === 'auteur'">{{participant.nom}}</span>
+                </div>
+                <div>
+                  <span *ngIf="!containsAuteur">N/A</span>
                 </div>
             </div>
         </div>
@@ -41,6 +53,9 @@
             <div *ngFor="let nomination of this.data.nominations">
                 <span *ngIf="nomination.isWon">{{nomination.categorie}} (gagné)</span>
                 <span *ngIf="!nomination.isWon">{{nomination.categorie}} (nominé)</span>
+            </div>
+            <div>
+              <span *ngIf="!containsNominations">N/A</span>
             </div>
         </div>
     </div>

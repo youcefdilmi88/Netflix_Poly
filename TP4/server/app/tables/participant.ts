@@ -1,5 +1,5 @@
 export class Participant {
-    ID_film: number;
+  ID_film: number;
 	ID_employe: number;
 	role_employe: string;
 	salaire: number;

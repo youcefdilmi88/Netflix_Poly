@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunicationService } from '../services/communication-service/communication.service';
+import { CommunicationService } from '../../services/communication-service/communication.service';
 import { Membre } from "../../models/Membre";
 
 @Component({

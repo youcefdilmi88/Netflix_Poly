@@ -21,8 +21,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { RouterModule } from '@angular/router';
 import { MemberComponent } from './components/member-page/member.component';
 import { AdminComponent } from './components/admin-page/admin.component';
-import { CommunicationService } from "./components/services/communication-service/communication.service";
-import { MemberService } from "./components/services/member-service/memberService";
+import { CommunicationService } from "./services/communication-service/communication.service";
+import { MemberService } from "./services/member-service/memberService";
 import { MembersGridComponent } from './components/members-grid/members-grid.component';
 
 

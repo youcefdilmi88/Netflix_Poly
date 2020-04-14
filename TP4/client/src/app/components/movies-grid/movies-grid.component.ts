@@ -5,9 +5,11 @@ import { Movie } from '../../../../../server/app/tables/Movie';
 import { MatDialog } from '@angular/material';
 import { EditModalComponent } from '../modals/edit-modal/edit-modal.component';
 import { ViewMovieModalComponent } from '../modals/view-movie-modal/view-movie-modal.component';
-import { CommunicationService } from '../services/communication-service/communication.service';
-import { MemberService } from "../services/member-service/memberService";
+import { CommunicationService } from '../../services/communication-service/communication.service';
+import { MemberService } from "../../services/member-service/memberService";
 import { Membre } from "../../models/Membre";
+import { Participant } from '../../models/participant'
+import { Nomination } from '../../models/nomination'
 
 
 @Component({
@@ -25,6 +27,8 @@ export class MoviesGridComponent implements OnInit {
   prodYear: Classification = new Classification("Année de production", this.SortType.none);
   classifications: Classification[] = [this.title, this.genre, this.duration /*,this.director*/, this.prodYear];
   movies : Movie[] = [/*{id: 1, title: 'Titanic', genre: "Drame", duration: 194, director: 'James Cameron', prodYear: 1997}*/];
+  distribution : Participant[] = [/*{id: 1, title: 'Titanic', genre: "Drame", duration: 194, director: 'James Cameron', prodYear: 1997}*/];
+  nominations : Nomination[] = [/*{id: 1, title: 'Titanic', genre: "Drame", duration: 194, director: 'James Cameron', prodYear: 1997}*/];
 
   activeMember: Membre | null;
 
@@ -65,15 +69,24 @@ export class MoviesGridComponent implements OnInit {
 
 
   show(movie: Movie) {
-    // TODO: get distribution et nomination du film
-
-    this.viewMovieDialog.open(ViewMovieModalComponent, {
-      data: {
-        movie: movie,
-        distribution: null, // Et remplacer ici
-        nominations: null,  // Et ici
-      }
+      // TODO: get distribution et nomination du film
+    this.communicationService.getNominations(movie.ID_film).subscribe((nominations: Nomination[]) => {
+        console.log(`fetch nominations pour ${movie.titre}`)
+        console.log(nominations)
+        this.communicationService.getDistribution(movie.ID_film).subscribe((distribution: Participant[]) => {
+          console.log(`fetch distributions pour ${movie.titre}`)
+          console.log(distribution)
+          this.viewMovieDialog.open(ViewMovieModalComponent, {
+            data: {
+              movie: movie,
+              distribution: distribution, // Et remplacer ici
+              nominations: nominations,  // Et ici
+            }
+          });
+        });
     });
+
+
   }
 
   edit(movie: Movie) {

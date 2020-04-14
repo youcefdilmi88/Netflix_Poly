@@ -75,29 +75,67 @@ INSERT INTO Employe
 (ID_employe, nom, age, sexe, nationalite)
 VALUES
 (DEFAULT, 'Quentin Tarantino', 50, 'M', 'USA'),
+(DEFAULT, 'Harvey Keitel', 50, 'M', 'USA'),
+(DEFAULT, 'Tim Roth', 50, 'M', 'USA'),
+(DEFAULT, 'Roger Avary', 50, 'M', 'USA'),
 (DEFAULT, 'John Travolta', 55, 'M', 'USA'),
 (DEFAULT, 'Uma Thurman', 51, 'F', 'USA'),
+(DEFAULT, 'Samuel L. Jackson', 51, 'M', 'USA'),
 (DEFAULT, 'Dustin Hoffman', 60, 'M', 'USA'),
+(DEFAULT, 'Nicholas Pileggi', 60, 'M', 'USA'),
 (DEFAULT, 'Martin Scorsese', 70, 'M', 'USA'),
 (DEFAULT, 'Robert De Niro', 75, 'M', 'USA'),
-(DEFAULT, 'Jodie Foster', 52, 'F', 'USA');
+(DEFAULT, 'Jodie Foster', 52, 'F', 'USA'),
+(DEFAULT, 'Sharon Stone', 52, 'F', 'USA'),
+(DEFAULT, 'Joe Pesci', 52, 'M', 'USA'),
+(DEFAULT, 'Ray Liotta', 52, 'M', 'USA'),
+(DEFAULT, 'Paul Schrader', 52, 'M', 'USA'),
+(DEFAULT, 'Cybill Shepherd', 52, 'M', 'USA'),
+(DEFAULT, 'Barry Levinson', 52, 'M', 'USA'),
+(DEFAULT, 'Tom Cruise', 52, 'M', 'USA'),
+(DEFAULT, 'Valeria Golino', 52, 'F', 'USA'),
+(DEFAULT, 'Barry Morrow', 52, 'M', 'USA'),
+(DEFAULT, 'Ronald Bass', 52, 'M', 'USA');
+
 
 INSERT INTO Film_Employe
 (ID_film, ID_employe, role_employe, salaire)
 VALUES
-(1, 1, 'Auteur', 5000000),
-(1, 1, 'Directeur',     5000000),
-(2, 1, 'Directeur',     2000000),
-(2, 2, 'Premier role', 10000000),
-(2, 3, 'Deuxieme role', 3000000),
-(3, 5, 'Directeur',     8000000),
-(3, 6, 'Premier role',  9000000),
-(4, 5, 'Directeur',     2000000),
-(4, 6, 'Premier role', 10000000),
-(5, 5, 'Directeur',     3000000),
-(5, 6, 'Premier role',  4000000),
-(5, 7, 'Deuxieme role', 7000000),
-(6, 4, 'Premier Role',  3000000);
+(1, 1, 'auteur', 5000000),
+(1, 4, 'auteur', 5000000),
+(1, 1, 'realisateur', 5000000),
+(1, 2, 'primaire', 5000000),
+(1, 3, 'primaire', 5000000),
+(2, 4, 'auteur', 2000000),
+(2, 1, 'realisateur', 2000000),
+(2, 5, 'primaire', 10000000),
+(2, 6, 'primaire', 3000000),
+(2, 7, 'secondaire', 3000000),
+(3, 10, 'realisateur',     8000000),
+(3, 9, 'auteur',     8000000),
+(3, 10, 'auteur',     8000000),
+(3, 11, 'primaire',  9000000),
+(3, 13, 'primaire',  9000000),
+(3, 14, 'secondaire',  9000000),
+(4, 10, 'realisateur',     8000000),
+(4, 9, 'auteur',     8000000),
+(4, 10, 'auteur',     8000000),
+(4, 11, 'primaire', 10000000),
+(4, 15, 'primaire', 10000000),
+(4, 14, 'secondaire', 10000000),
+(5, 10, 'realisateur',     3000000),
+(5, 16, 'auteur',     3000000),
+(5, 11, 'primaire',  4000000),
+(5, 12, 'primaire', 7000000),
+(5, 17, 'secondaire', 7000000),
+(6, 8, 'primaire',  3000000),
+(6, 19, 'primaire',  3000000),
+(6, 20, 'secondaire',  3000000),
+(6, 19, 'realisateur',  3000000),
+(6, 21, 'auteur',  3000000),
+(6, 22, 'auteur',  3000000);
+
+
 
 INSERT INTO Carte_credit
 (ID_carte, ID_membre, titulaire, numero, expiration_YYMM, CCV)
@@ -129,6 +167,6 @@ VALUES
 (DEFAULT, 5, 4, false, 'Meilleur film'),
 (DEFAULT, 6, 5, true, 'Meilleur acteur'),
 (DEFAULT, 6, 5, true, 'Meilleur film'),
-(DEFAULT, 6, 5, true, 'Meilleur Directeur');
+(DEFAULT, 6, 5, true, 'Meilleur realisateur');
 
 `;

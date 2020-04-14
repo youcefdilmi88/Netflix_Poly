@@ -53,6 +53,17 @@ export class DatabaseService {
         return this.pool.query('SELECT * FROM netflixdb.Membre;');
     }
 
+    public getNominations(ID_film: number): Promise<pg.QueryResult> {
+
+        return this.pool.query(`SELECT * FROM netflixdb.Oscars o WHERE o.ID_film=${ID_film};`);
+    }
+
+    public getDistribution(ID_film: number): Promise<pg.QueryResult> {
+
+        return this.pool.query(`SELECT ID_film, ID_employe, role_employe, salaire, nom, age, sexe, nationalite FROM netflixdb.Employe NATURAL JOIN netflixdb.Film_Employe fe WHERE fe.ID_film=${ID_film};`);
+    }
+
+
     public login(email: String, password: String): Promise<pg.QueryResult> {
         return this.pool.query(`SELECT * FROM netflixdb.Membre m WHERE m.courriel='${email}' AND m.mot_de_passe='${password}';`);
 

@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { } from '../edit-modal/edit-modal.component';
 import { ErrorModalComponent } from '../error-modal/error-modal.component';
 import { Movie } from '../../../models/Movie';
-import { CommunicationService } from '../../services/communication-service/communication.service';
+import { CommunicationService } from '../../../services/communication-service/communication.service';
 
 
 
