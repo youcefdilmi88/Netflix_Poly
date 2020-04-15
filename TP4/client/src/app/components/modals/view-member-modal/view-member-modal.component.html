@@ -1,0 +1,17 @@
+<div id="main">
+    <div>
+        <h1 mat-dialog-title>{{this.data.nom}}</h1>
+        <div class="whitespace">
+            <span mat-dialog-content><span style="font-weight:bold">Adresse courriel : </span>{{this.data.courriel}}</span>
+            <span mat-dialog-content><span style="font-weight:bold">Adresse postale : </span>{{this.data.no_rue}} rue {{this.data.rue}}, {{this.data.ville}} ({{this.data.code_postal}})</span>
+        </div>
+    </div>
+    <div id="info-block">
+        <span mat-dialog-content><span style="font-weight:bold">ID : </span>{{this.data.ID_membre}}</span>
+        <span *ngIf="this.data.monthly" mat-dialog-content><span style="font-weight:bold">Type de paiement : </span>Abonnement mensuel</span>
+        <span *ngIf="!this.data.monthly" mat-dialog-content><span style="font-weight:bold">Type de paiement : </span>À la vue</span>
+    </div>
+    <div id="close">
+        <button mat-button (click)="this.close()">OK</button>
+    </div>
+</div>

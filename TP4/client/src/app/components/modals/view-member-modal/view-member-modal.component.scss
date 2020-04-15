@@ -1,0 +1,27 @@
+mat-dialog-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.bold {
+    font-weight: bold;
+    display: inline;
+}
+
+#main {
+    width: 40vw;
+}
+
+.whitespace {
+    margin-bottom: 20px;
+}
+
+#close {
+    float: right;
+    margin-top: 10px;
+}
+
+.mat-dialog-title {
+    margin: 0;
+}

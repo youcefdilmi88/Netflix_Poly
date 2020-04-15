@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from '../../services/communication-service/communication.service';
 import { Membre } from "../../models/Membre";
+import { ViewMemberModalComponent } from '../modals/view-member-modal/view-member-modal.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-members-grid',
@@ -13,7 +15,7 @@ export class MembersGridComponent implements OnInit {
   membres : Membre[] = [];
 
 
-  constructor(private communicationService: CommunicationService) {}
+  constructor(private communicationService: CommunicationService, public viewMemberDialog: MatDialog) {}
 
   ngOnInit() {
 
@@ -33,22 +35,11 @@ export class MembersGridComponent implements OnInit {
     });
   }
 
-
-
-
-  // show(membre: Membre) {
-  //   this.viewMovieDialog.open(ViewMovieModalComponent, {
-  //     data: {
-  //       id: movie.ID_film,
-  //       title: movie.titre,
-  //       genre: movie.genre,
-  //       duration: movie.duree_totale_min,
-  //       //director: movie.director,
-  //       prodYear: movie.annee_prod
-  //     }
-  //   });
-  // }
-
-
-
+  show(membre: Membre) {
+    this.viewMemberDialog.open(ViewMemberModalComponent, {
+       data: {
+         membre
+       }
+     });
+   }
 }
