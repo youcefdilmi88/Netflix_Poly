@@ -1,7 +1,6 @@
 import { injectable } from "inversify";
 import * as pg from "pg";
 import "reflect-metadata";
-import { Room } from "../tables/Room";
 import {schema} from "../createSchema";
 import {data} from "../populateDB";
 
@@ -23,10 +22,7 @@ export class DatabaseService {
     public constructor() {
         this.pool.connect();
     }
-    /*
 
-        METHODES DE DEBUG
-    */
     public createSchema(): Promise<pg.QueryResult> {
 
         return this.pool.query(schema);
@@ -42,7 +38,11 @@ export class DatabaseService {
         return this.pool.query(`SELECT * FROM netflixdb.${tableName};`);
     }
 
-    // HOTEL
+    public deleteMovie(ID_film: number): Promise<pg.QueryResult> {
+
+        return this.pool.query(`DELETE FROM netflixdb.Film AS fi WHERE fi.ID_film=${ID_film};`);
+    }
+
     public getMovies(): Promise<pg.QueryResult> {
 
         return this.pool.query('SELECT * FROM netflixdb.Film;');
@@ -70,16 +70,21 @@ export class DatabaseService {
     }
 
 
-    // public getHotelNo(): Promise<pg.QueryResult> {
-
-    //     return this.pool.query('SELECT hotelNo FROM HOTELDB.Hotel;');
-
-    // }
-
-
-
     public createMovie(titre: string, genre: string, annee_prod: number, duree_totale_min: number): Promise<pg.QueryResult> {
         return this.pool.query(`INSERT INTO netflixdb.Film (ID_film, titre, genre, annee_prod, duree_totale_min) VALUES(DEFAULT, '${titre}', '${genre}', '${annee_prod}', '${duree_totale_min}') RETURNING ID_film;`);
+    }
+
+
+    public editMovie(ID_film: number, titre: string, genre: string, annee_prod: number, duree_totale_min: number): Promise<pg.QueryResult> {
+        return this.pool.query( `UPDATE netflixdb.Film
+                                SET
+                                titre = '${titre}',
+                                genre = '${genre}',       
+                                annee_prod = ${annee_prod},
+                                duree_totale_min = '${duree_totale_min}'
+                                WHERE
+                                ID_film = '${ID_film}';`
+                              );
     }
 
     public createMembre(nom: string, mot_de_passe: string, courriel: string, no_rue: number, rue: string, code_postal: string, ville: string,  isAdmin: boolean, monthly: boolean): Promise<pg.QueryResult> {
@@ -104,102 +109,5 @@ export class DatabaseService {
         return this.pool.query(`INSERT INTO netflixdb.Carte_credit (ID_carte, ID_membre, titulaire, numero, expiration_YYMM, CCV) VALUES(DEFAULT, ${ID_membre}, '${titulaire}', ${cardNum}, '${expDate}', ${CCV}) RETURNING *;`);
     }
 	
-	
-	public deleteHotel(/*Todo*/): void /*TODO*/  {
-		/*TODO*/
-	}
 
-    // ROOM
-    public getRoomFromHotel(hotelNo: string, roomType: string, price: number): Promise<pg.QueryResult> {
-
-        let query: string =
-        `SELECT * FROM HOTELDB.room
-        WHERE hotelno=\'${hotelNo}\'`;
-        if (roomType !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`typeroom=\'${roomType}\'`);
-        }
-        if (price !== undefined) {
-            query = query.concat('AND ');
-            query = query.concat(`price =\'${price}\'`);
-        }
-        console.log(query);
-
-        return this.pool.query(query);
-    }
-
-    public getRoomFromHotelParams(params: object): Promise<pg.QueryResult> {
-
-        let query: string = 'SELECT * FROM HOTELDB.room \n';
-        const keys: string[] = Object.keys(params);
-        if (keys.length > 0) {
-            query = query.concat(`WHERE ${keys[0]} =\'${params[keys[0]]}\'`);
-        }
-
-        // On enleve le premier element
-        keys.shift();
-
-        // tslint:disable-next-line:forin
-        for (const param in keys) {
-            const value: string = keys[param];
-            query = query.concat(`AND ${value} = \'${params[value]}\'`);
-            if (param === 'price') {
-                query = query.replace('\'', '');
-            }
-        }
-
-        console.log(query);
-
-        return this.pool.query(query);
-
-    }
-
-    public createRoom(room: Room): Promise<pg.QueryResult> {
-        const values: string[] = [
-            room.roomno,
-            room.hotelno,
-            room.typeroom,
-            room.price.toString()
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // GUEST
-    public createGuest(guestNo: string,
-                       nas: string,
-                       guestName: string,
-                       gender: string,
-                       guestCity: string): Promise<pg.QueryResult> {
-        // this.pool.connect();
-        const values: string[] = [
-            guestNo,
-            nas,
-            guestName,
-            gender,
-            guestCity
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-    }
-
-    // BOOKING
-    public createBooking(hotelNo: string,
-                         guestNo: string,
-                         dateFrom: Date,
-                         dateTo: Date,
-                         roomNo: string): Promise<pg.QueryResult> {
-        const values: string[] = [
-            hotelNo,
-            guestNo,
-            dateFrom.toString(),
-            dateTo.toString(),
-            roomNo
-        ];
-        const queryText: string = `INSERT INTO HOTELDB.ROOM VALUES($1,$2,$3,$4,$5);`;
-
-        return this.pool.query(queryText, values);
-        }
 }

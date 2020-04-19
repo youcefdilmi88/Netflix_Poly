@@ -1,7 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-//import {Hotel} from "../../../../common/tables/Hotel";
-//import {Room} from "../../../../common/tables/Room";
 import { of, Observable,concat, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Movie } from "../../models/Movie";
@@ -40,6 +38,18 @@ export class CommunicationService {
     }
 
 
+    public setUpDatabase(): Observable<any> {
+      return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
+                    this.http.post<any>(this.BASE_URL + "/populateDb", []));
+    }
+
+
+    public login(email: string, password: string): Observable<Membre[]> {
+      return this.http.get<Membre[]>(this.BASE_URL + `/login?email=${email}&password=${password}`).pipe(
+        catchError(this.handleError<Membre[]>("login")),
+      );
+    }
+
 
     public getMovies(): Observable<any[]> {
         return this.http.get<Movie[]>(this.BASE_URL + "/movies").pipe(
@@ -47,45 +57,31 @@ export class CommunicationService {
         );
     }
 
+
+    public getMembres(): Observable<any[]> {
+      return this.http.get<Movie[]>(this.BASE_URL + "/membres").pipe(
+          catchError(this.handleError<Movie[]>("getMembres")),
+      );
+    }
+
+
     public getNominations(ID_film: number): Observable<any[]> {
       return this.http.get<Nomination[]>(this.BASE_URL + `/nominations?id=${ID_film}`).pipe(
-          catchError(this.handleError<Movie[]>("getNominations")),
+          catchError(this.handleError<Nomination[]>("getNominations")),
       );
     }
 
     public getDistribution(ID_film: number): Observable<any[]> {
       return this.http.get<Participant[]>(this.BASE_URL + `/distribution?id=${ID_film}`).pipe(
-          catchError(this.handleError<Movie[]>("getDistribution")),
+          catchError(this.handleError<Participant[]>("getDistribution")),
       );
     }
 
-    public getMembres(): Observable<any[]> {
-      return this.http.get<Movie[]>(this.BASE_URL + "/membres").pipe(
-          catchError(this.handleError<Movie[]>("getMovies")),
-      );
-    }
-
-
-
-
-    public login(email: string, password: string): Observable<Membre[]> {
-        return this.http.get<Membre[]>(this.BASE_URL + `/login?email=${email}&password=${password}`).pipe(
-          catchError(this.handleError<Membre[]>("login")),
-      );
-    }
-
-
-
-    public getHotelPKs(): Observable<string[]> {
-        return this.http.get<string[]>(this.BASE_URL + "/hotel/hotelNo").pipe(
-            catchError(this.handleError<string[]>("getHotelPKs")),
-        );
-    }
 
     public insertMovie(movie: any): Observable<number> {
-        return this.http.post<number>(this.BASE_URL + "/movies/insert", movie).pipe(
-            catchError(this.handleError<number>("insertMovie")),
-        );
+      return this.http.post<number>(this.BASE_URL + "/movies/insert", movie).pipe(
+          catchError(this.handleError<number>("insertMovie")),
+      );
     }
 
     public insertMembre(membre: Membre): Observable<number> {
@@ -94,26 +90,24 @@ export class CommunicationService {
       );
     }
 
-
-    // public insertRoom(room: Room): Observable<number> {
-    //     return this.http.post<number>(this.BASE_URL + "/rooms/insert", room).pipe(
-    //         catchError(this.handleError<number>("inserHotel")),
-    //     );
-    // }
-
-    public deleteHotel(): void {
+    public editMovie(movie: Movie): Observable<number> {
+      return this.http.put<number>(this.BASE_URL + "/movies/edit", movie).pipe(
+        catchError(this.handleError<number>("editMovie")),
+      );
     }
 
 
-    public setUpDatabase(): Observable<any> {
-        return concat(this.http.post<any>(this.BASE_URL + "/createSchema", []),
-                      this.http.post<any>(this.BASE_URL + "/populateDb", []));
+    public deleteMovie(ID_film: number): Observable<number> {
+        return this.http.delete<number>(this.BASE_URL + `/movies/delete?id=${ID_film}`).pipe(
+          catchError(this.handleError<number>("deleteMovie")),
+      );
     }
+
 
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-
-        return (error: Error): Observable<T> => {
-            return of(result as T);
-        };
+      return (error: Error): Observable<T> => {
+          return of(result as T);
+      };
     }
+
 }

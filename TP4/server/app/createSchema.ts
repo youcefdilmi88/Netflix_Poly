@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Membre_mensuel (
 	date_debut_abonnement	DATE NOT NULL,
 	date_fin_abonnement 	DATE NOT NULL,
 	PRIMARY KEY 			(ID_membre),
-	FOREIGN KEY 			(ID_membre) REFERENCES Membre(ID_membre)
+	FOREIGN KEY 			(ID_membre) REFERENCES Membre(ID_membre) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Membre_payperview (
 	ID_membre	 			INT,
 	nb_film_payperview 		INT NOT NULL,
 	PRIMARY KEY 			(ID_membre),
-	FOREIGN KEY 			(ID_membre) REFERENCES Membre(ID_membre)
+	FOREIGN KEY 			(ID_membre) REFERENCES Membre(ID_membre) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Commande (
 	ID_membre 		INT NOT NULL,
 	date_commande	DATE,
 	PRIMARY KEY 	(ID_commande),
-	FOREIGN KEY 	(ID_membre) REFERENCES Membre(ID_membre)
+	FOREIGN KEY 	(ID_membre) REFERENCES Membre(ID_membre) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Film (
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS Livraison (
 	prix					NUMERIC(4, 2) NOT NULL,				
 	distance			 	INT,
 	PRIMARY KEY 			(ID_commande),
-	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande),
-	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film)
+	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS DVD (
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS DVD (
 	ID_livraison			INT,
 	PRIMARY KEY 			(ID_dvd, ID_film),
 	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY 			(ID_livraison) REFERENCES Livraison(ID_commande)
+	FOREIGN KEY 			(ID_livraison) REFERENCES Livraison(ID_commande) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Visionnement (
@@ -80,8 +80,8 @@ CREATE TABLE IF NOT EXISTS Visionnement (
 	prix					NUMERIC(4, 2) NOT NULL,
 	stop_time_sec			INT NOT NULL,
 	PRIMARY KEY 			(ID_commande),
-	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande),
-	FOREIGN KEY				(ID_film) REFERENCES Film(ID_film)
+	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY				(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS Film_Employe (
 	role_employe			VARCHAR(255),
 	salaire					INT,
 	PRIMARY KEY 			(ID_film, ID_employe, role_employe),
-	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film),
-	FOREIGN KEY 			(ID_employe) REFERENCES Employe(ID_employe)
+	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY 			(ID_employe) REFERENCES Employe(ID_employe) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

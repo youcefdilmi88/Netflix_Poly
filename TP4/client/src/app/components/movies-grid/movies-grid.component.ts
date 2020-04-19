@@ -87,10 +87,10 @@ export class MoviesGridComponent implements OnInit {
   edit(movie: Movie) {
     this.editDialog.open(EditModalComponent, {
       data: {
+        ID_film: movie.ID_film,
         title: movie.titre,
         genre: movie.genre,
         duration: movie.duree_totale_min,
-        //director: movie.director,
         prodYear: movie.annee_prod
       }
     });
@@ -99,10 +99,20 @@ export class MoviesGridComponent implements OnInit {
   }
 
   delete(movie: Movie) {
-    // TODO: DATABASE CALL (DELETE MOVIE)
-
-    let index = this.movies.indexOf(movie);
-    this.movies.splice(index);
+    this.communicationService.deleteMovie(movie.ID_film).subscribe((res: number) => {
+      console.log(res);
+      if (res > 0) {
+          this.communicationService.filter("update");
+      }
+    });
   }
 
+
+
+
+
+
+
 }
+
+
