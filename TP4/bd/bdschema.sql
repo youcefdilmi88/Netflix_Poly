@@ -1,5 +1,5 @@
 CREATE USER netflix_user encrypted password 'netflix123';
-GRANT ALL PRIVILEGES ON DATABASE netflixi to netflix_user;
+GRANT ALL PRIVILEGES ON DATABASE netflixdb to netflix_user;
 
 CREATE SCHEMA IF NOT EXISTS netflix
 AUTHORIZATION netflix_user;
@@ -42,38 +42,13 @@ CREATE TABLE IF NOT EXISTS Membre_payperview (
 );
 
 
-/*Commande et Membre n'ont pas une relation identifiante car on doit pouvoir retrouver les commandes même si le membre est supprimé*/
 CREATE TABLE IF NOT EXISTS Commande (
 	ID_commande 	SERIAL,
 	ID_membre 		INT NOT NULL,
+	date_commande	DATE,
 	PRIMARY KEY 	(ID_commande),
 	FOREIGN KEY 	(ID_membre) REFERENCES Membre(ID_membre)
 );
-
-
-/*DVD et Livraison n'ont pas une relation identifiante car on doit pouvoir retrouver les livraisons même si le DVD est supprimé*/
-CREATE TABLE IF NOT EXISTS Livraison (
-	ID_commande 			INT,
-	ID_dvd					INT NOT NULL,
-	prix					NUMERIC(4, 2) NOT NULL,
-	date_livraison			DATE NOT NULL, 				
-	distance			 	INT,
-	PRIMARY KEY 			(ID_commande),
-	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande)
-);
-
-
-/*Visionnement et Film n'ont pas une relation identifiante car on doit pouvoir retrouver les visionnements même si le film est supprimé*/
-CREATE TABLE IF NOT EXISTS Visionnement (
-	ID_commande 			INT,
-	ID_film					INT NOT NULL,
-	prix					NUMERIC(4, 2) NOT NULL,
-	date_visionnement		DATE NOT NULL,
-	stop_time_sec			INT NOT NULL,
-	PRIMARY KEY 			(ID_commande),
-	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande)
-);
-
 
 CREATE TABLE IF NOT EXISTS Film (
 	ID_film		 			SERIAL,
@@ -85,15 +60,34 @@ CREATE TABLE IF NOT EXISTS Film (
 );
 
 
-/*Film et DVD ont une relation identifiante car on doit supprimer les DVDs lorsque le film est supprimé*/
+CREATE TABLE IF NOT EXISTS Livraison (
+	ID_commande 			INT,
+	ID_film					INT NOT NULL,
+	prix					NUMERIC(4, 2) NOT NULL,				
+	distance			 	INT,
+	PRIMARY KEY 			(ID_commande),
+	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande),
+	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film)
+);
+
 CREATE TABLE IF NOT EXISTS DVD (
 	ID_dvd		 			SERIAL,
-	no_instance				INT,
-	ID_film					INT,
-	ID_livraison			INT NOT NULL,
+	no_instance				INT NOT NULL,
+	ID_film					INT NOT NULL,
+	ID_livraison			INT,
 	PRIMARY KEY 			(ID_dvd, ID_film),
-	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film),
-	FOREIGN KEY 			(ID_livraison) REFERENCES Livraison(ID_commande) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY 			(ID_livraison) REFERENCES Livraison(ID_commande)
+);
+
+CREATE TABLE IF NOT EXISTS Visionnement (
+	ID_commande 			INT,
+	ID_film					INT NOT NULL,
+	prix					NUMERIC(4, 2) NOT NULL,
+	stop_time_sec			INT NOT NULL,
+	PRIMARY KEY 			(ID_commande),
+	FOREIGN KEY 			(ID_commande) REFERENCES Commande(ID_commande),
+	FOREIGN KEY				(ID_film) REFERENCES Film(ID_film)
 );
 
 
@@ -119,7 +113,6 @@ CREATE TABLE IF NOT EXISTS Film_Employe (
 );
 
 
-/*Carte_credit et Membre ont une relation identifiante car on doit supprimer les informations de la carte lorsque le membre est supprimé*/
 CREATE TABLE IF NOT EXISTS Carte_credit (
 	ID_carte				SERIAL,
 	ID_membre				INT,
@@ -141,10 +134,6 @@ CREATE TABLE IF NOT EXISTS Ceremonie_oscars (
 );
 
 
-/*
-Oscars et Ceremonie_oscars n'ont pas une relation identifiante car on doit pouvoir retrouver les oscars même si la cérémonie est supprimée
-Film et Oscars ont une relation identifiante car on peut supprimer les oscars lorsque le film est supprimé
-*/
 CREATE TABLE IF NOT EXISTS Oscars (
 	ID_oscar				SERIAL,
 	ID_film					INT,
@@ -155,6 +144,5 @@ CREATE TABLE IF NOT EXISTS Oscars (
 	FOREIGN KEY 			(ID_film) REFERENCES Film(ID_film) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY 			(ID_ceremonie) REFERENCES Ceremonie_oscars(ID_ceremonie)
 );
-
 
 
