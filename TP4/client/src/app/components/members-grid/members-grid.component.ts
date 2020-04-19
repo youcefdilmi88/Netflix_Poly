@@ -18,12 +18,9 @@ export class MembersGridComponent implements OnInit {
   constructor(private communicationService: CommunicationService, public viewMemberDialog: MatDialog) {}
 
   ngOnInit() {
-
-    // TODO: DATABASE CALL (GET MOVIE LIST)
-    this.communicationService.listen().subscribe((m:any) => {
-      this.getMembres();
-  });
-
+      this.communicationService.listen().subscribe((m:any) => {
+        this.getMembres();
+    });
   }
 
   public colonnes: string[] = ['ID', 'Nom', 'Courriel', 'Ville', 'Administrateur'];
@@ -38,7 +35,7 @@ export class MembersGridComponent implements OnInit {
   show(membre: Membre) {
     this.viewMemberDialog.open(ViewMemberModalComponent, {
        data: {
-         membre
+         membre: membre
        }
      });
    }

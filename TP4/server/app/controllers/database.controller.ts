@@ -206,14 +206,14 @@ export class DatabaseController {
                         });
                     if (monthly) {
                         this.databaseService.createMembreMensuel(result.rows[0].id_membre, 15.99, new Date(), this.fin_abonnement(1)).then((result: pg.QueryResult) => {
-                        res.send(result);
+                        res.json(result.rowCount);
                         }).catch((e: Error) => {
                             console.error(e.stack);
                             res.json(-1);
                         });
                     } else {
                         this.databaseService.createMembrePPV(result.rows[0].id_membre).then((result: pg.QueryResult) => {
-                        res.send(result);
+                        res.json(result.rowCount);
                         }).catch((e: Error) => {
                             console.error(e.stack);
                             res.json(-1);

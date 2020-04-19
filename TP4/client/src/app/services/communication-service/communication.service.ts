@@ -30,6 +30,7 @@ export class CommunicationService {
 
     private _listners: any = new Subject<any>();
 
+
     public listen(): Observable<any> {
        return this._listners.asObservable();
     }
@@ -37,6 +38,7 @@ export class CommunicationService {
     public filter(filterBy: string): void {
        this._listners.next(filterBy);
     }
+
 
 
     public getMovies(): Observable<any[]> {

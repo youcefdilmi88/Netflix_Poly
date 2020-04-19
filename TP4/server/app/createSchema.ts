@@ -1,8 +1,8 @@
 export const schema: string = `
 SET search_path = netflixdb;
 
-DROP SCHEMA IF EXISTS netflix CASCADE;
-CREATE SCHEMA netflix;
+DROP SCHEMA IF EXISTS netflixdb CASCADE;
+CREATE SCHEMA netflixdb;
 
 CREATE TABLE IF NOT EXISTS Membre (
 	ID_membre 		SERIAL,

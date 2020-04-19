@@ -35,13 +35,18 @@ export class MoviesGridComponent implements OnInit {
   constructor(public editDialog: MatDialog, public viewMovieDialog: MatDialog, private communicationService: CommunicationService, private memberService: MemberService) {}
 
   ngOnInit() {
-    this.memberService.obsMember.subscribe((obsMember: Membre | null) => this.activeMember = obsMember);
+      this.memberService.obsMember.subscribe((obsMember: Membre | null) => this.activeMember = obsMember);
+      this.communicationService.listen().subscribe((m:any) => {
+        this.getMovies();
+    });
+  }
 
-    // TODO: DATABASE CALL (GET MOVIE LIST)
-    this.communicationService.listen().subscribe((m:any) => {
-      this.getMovies();
-  });
 
+  public getMovies(): void {
+    this.communicationService.getMovies().subscribe((movies: Movie[]) => {
+        this.movies = movies;
+        console.log(this.movies)
+    });
   }
 
   sort(classification: Classification) {
@@ -55,16 +60,6 @@ export class MoviesGridComponent implements OnInit {
         classif.sortType = this.SortType.none;
       }
     }
-  }
-
-
-
-
-  public getMovies(): void {
-    this.communicationService.getMovies().subscribe((movies: Movie[]) => {
-        this.movies = movies;
-        console.log(this.movies)
-    });
   }
 
 

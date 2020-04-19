@@ -1,11 +1,11 @@
-CREATE USER netflix_user encrypted password 'netflix123';
-GRANT ALL PRIVILEGES ON DATABASE netflixdb to netflix_user;
+CREATE USER admin encrypted password 'admin';
+GRANT ALL PRIVILEGES ON DATABASE netflixdb to admin;
 
 CREATE SCHEMA IF NOT EXISTS netflix
-AUTHORIZATION netflix_user;
+AUTHORIZATION admin;
 
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA netflix TO netflix_user;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA PUBLIC TO netflix_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA netflix TO admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA PUBLIC TO admin;
 
 SET search_path TO netflix, public;
 
