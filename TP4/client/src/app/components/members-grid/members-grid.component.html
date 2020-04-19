@@ -62,8 +62,7 @@
                   <mat-icon [matMenuTriggerFor]="belowMenu">settings</mat-icon>
               </mat-grid-tile>
               <mat-menu #belowMenu="matMenu" yPosition="below">
-                  <button mat-menu-item >Voir le membre</button>
-                  <!-- (click)="this.show(membre)" -->
+                  <button mat-menu-item (click="this.show(membre)")>Voir le membre</button>
               </mat-menu>
             </div>
          </mat-grid-list>

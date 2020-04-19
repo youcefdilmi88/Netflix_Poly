@@ -24,14 +24,15 @@ import { AdminComponent } from './components/admin-page/admin.component';
 import { CommunicationService } from "./services/communication-service/communication.service";
 import { MemberService } from "./services/member-service/memberService";
 import { MembersGridComponent } from './components/members-grid/members-grid.component';
+import { ViewMemberModalComponent } from './components/modals/view-member-modal/view-member-modal.component';
 
 
 @NgModule({
-    declarations: [AppComponent, ToolbarComponent, MoviesGridComponent, EditModalComponent, ErrorModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent, HomepageComponent, MemberComponent, AdminComponent, MembersGridComponent],
+    declarations: [AppComponent, ToolbarComponent, MoviesGridComponent, EditModalComponent, ErrorModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent, HomepageComponent, MemberComponent, AdminComponent, MembersGridComponent, ViewMemberModalComponent],
     imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, MatToolbarModule, MatMenuModule, RouterModule,
               MatGridListModule, MatIconModule, MatDialogModule, FormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatOptionModule, MatSelectModule, RouterModule.forRoot(appRoutes)],
     providers: [MatDialogModule, CommunicationService, MoviesGridComponent, MemberService, MembersGridComponent],
     bootstrap: [AppComponent],
-    entryComponents: [EditModalComponent, ErrorModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent],
+    entryComponents: [EditModalComponent, ErrorModalComponent, ViewMemberModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent],
 })
 export class AppModule {}
