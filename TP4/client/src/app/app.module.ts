@@ -25,12 +25,13 @@ import { CommunicationService } from "./services/communication-service/communica
 import { MemberService } from "./services/member-service/memberService";
 import { MembersGridComponent } from './components/members-grid/members-grid.component';
 import { ViewMemberModalComponent } from './components/modals/view-member-modal/view-member-modal.component';
-
+import { MatVideoModule } from 'mat-video';
+import { VideoComponent } from './components/video/video.component';
 
 @NgModule({
-    declarations: [AppComponent, ToolbarComponent, MoviesGridComponent, EditModalComponent, ErrorModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent, HomepageComponent, MemberComponent, AdminComponent, MembersGridComponent, ViewMemberModalComponent],
+    declarations: [AppComponent, ToolbarComponent, MoviesGridComponent, EditModalComponent, ErrorModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent, HomepageComponent, MemberComponent, AdminComponent, MembersGridComponent, ViewMemberModalComponent, VideoComponent],
     imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, MatToolbarModule, MatMenuModule, RouterModule,
-              MatGridListModule, MatIconModule, MatDialogModule, FormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatOptionModule, MatSelectModule, RouterModule.forRoot(appRoutes)],
+              MatGridListModule, MatIconModule, MatDialogModule, FormsModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatOptionModule, MatSelectModule, RouterModule.forRoot(appRoutes), BrowserAnimationsModule, MatVideoModule],
     providers: [MatDialogModule, CommunicationService, MoviesGridComponent, MemberService, MembersGridComponent],
     bootstrap: [AppComponent],
     entryComponents: [EditModalComponent, ErrorModalComponent, ViewMemberModalComponent, ViewMovieModalComponent, AddMovieModalComponent, AddParticipantModalComponent, SignUpModalComponent],

@@ -1,7 +1,4 @@
 <div id='main'>
-  <div id="bd-button">
-    <button mat-raised-button id="importer-films" (click)="this.getMovies()" class='left-item' mat-button >Importer les films</button>
-  </div>
   <div id='grid'>
         <mat-grid-list cols = "21" rowHeight = "30px">
             <mat-grid-tile [colspan] = "5" [rowspan] = "1" class='tile' *ngFor="let classification of classifications">

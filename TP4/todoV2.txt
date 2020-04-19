@@ -5,17 +5,11 @@ Front end:
         2) Créer un modal pour afficher un membre, seulement les informations principales de la table membre, lorsqu'on clique sur "Voir membre" dans le "members-grid".
         3) Envoyer la requête pour un fichier video.
         4) Retirer le code de sorting des rows dans le movie-grid, ce n'était pas demandé dans l'énoncé du TP.
-        5) Envoyer les requête de suppression ou de modification de film
-        6) Envoyer une requête getMovies pour mettre à jour le movie-grid lorsqu'un film est modifier ou supprimer.
         7) Enlever les boutons "Initialiser la base de donnée", "Importer les films" et "Importer les membres". Ajouter la logique dans le back-end
 
 Back end:
 
-        1) Recevoir la requête pour supprimer un film dans la bd.
-        2) Recevoir la requête pour modifier un film dans la bd.
         3) Stocker les fichiers vidéos des film et répondre à la requête du client pour un film, si la requête viens d'un membre "pay per view", mettre à jour le nombre de visionnement dans la table Membre_payperview.
-        4) Recevoir le "stop-time" d'un video et l'insérer dans la table "Visionnement".
-        5) Recevoir la requête de "stop-time" et envoyer la réponse.
         6) Créer une fonction séparée pour insérer des commandes de livraison dans la bd.
         7) Créer la fonction pour appeler l'API de google pour calculer la distance entre un code postal et le pavillon Lassonde.
         8) Créer le trigger pour calculer le prix de livraison et l'insérer dans la table "livraison".

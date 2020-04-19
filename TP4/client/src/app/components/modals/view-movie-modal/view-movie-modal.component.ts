@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Movie } from 'src/app/models/Movie';
 import { Participant } from 'src/app/models/participant';
 import { Nomination } from 'src/app/models/nomination';
+import { Router} from '@angular/router';
 
 export interface DialogData {
   movie: Movie;
@@ -19,7 +20,7 @@ export class ViewMovieModalComponent implements OnInit {
 
   hours: number = Math.floor(this.data.movie.duree_totale_min / 60);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private dialogRef: MatDialogRef<ViewMovieModalComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private router: Router, private dialogRef: MatDialogRef<ViewMovieModalComponent>) { }
 
 
   containsPrimaire: boolean = false;
@@ -47,6 +48,7 @@ export class ViewMovieModalComponent implements OnInit {
   }
 
   watch() {
+    this.router.navigateByUrl('/video');
     this.dialogRef.close();
   }
 

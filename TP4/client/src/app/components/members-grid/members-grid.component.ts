@@ -18,6 +18,7 @@ export class MembersGridComponent implements OnInit {
   constructor(private communicationService: CommunicationService, public viewMemberDialog: MatDialog) {}
 
   ngOnInit() {
+    this.getMembres();
       this.communicationService.listen().subscribe((m:any) => {
         this.getMembres();
     });

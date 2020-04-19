@@ -35,6 +35,7 @@ export class MoviesGridComponent implements OnInit {
   constructor(public editDialog: MatDialog, public viewMovieDialog: MatDialog, private communicationService: CommunicationService, private memberService: MemberService) {}
 
   ngOnInit() {
+    this.getMovies();
       this.memberService.obsMember.subscribe((obsMember: Membre | null) => this.activeMember = obsMember);
       this.communicationService.listen().subscribe((m:any) => {
         this.getMovies();
